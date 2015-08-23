@@ -1,0 +1,52 @@
+# Codebook for the Course Project in Getting and Cleaning Data
+lestarr  
+23.08.2015  
+
+## Project Description
+This project shows the process of cleaning and preparing data to form the tidy data set for the further analysis.
+
+##Study design and data processing
+
+###Collection of the raw data
+Row data were taken here: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+
+###Notes on the original (raw) data 
+Raw date are split into train and test sets. For the purpose of this project they were merged.
+
+##Creating the tidy datafile
+
+###Guide to create the tidy data file
+To create the tidy data file:
+
+1. Download the data.
+2. Unzip them into the working directory with the path: "./data/UCI HAR Dataset".
+3. For the data set only the X, y and subject files of train and test subsets were used. The files in "Inertial Signals" were ignored.
+4. Read all the files mentioned in 3. As the data are separated by one or more spaces, the read.table was a better choice than read.csv.
+5. The X, y and subject files were combined as columns to the train and test data sets respectively. The order is: subject, activity, all the measurements variables.
+6. The train and test data sets combined into one set.
+7. Add the feature names to the data set: the columns get named with "subject", "activity" + all the measurement features from the features.txt of the row data.
+
+
+
+###Cleaning of the data
+  1. The columns with the duplicated names were removed.
+  2. Only the measurements features which names contain "mean" or "std" were left. Other measurements deleted. The "subject" and "activity" columns remain.
+  3. Activity labels were loaded from activity_labels.txt.
+  4. Both tables merged on the activity id, so the descriptive activities names are used. The variable name for descriptive activities is "activity_descr".
+  5. Tidy output is achieved by grouping the table by subject and activity_descr and then computing the mean for each measurement type.
+
+
+##Description of the variables in the tidy_output.txt file
+Classes 'grouped_df', 'tbl_df', 'tbl' and 'data.frame':	180 obs. of  88 variables:
+
+ $ subject                             : int  1 1 1 1 1 1 2 2 2 2 ...
+ 
+ $ activity_descr                      : Factor w/ 6 levels "LAYING","SITTING",..: 1 2 3 4 5 6 1 2 3 4 ...
+ 
+ $ tBodyAcc-mean()-X                   : num  0.222 0.261 0.279 0.277 0.289 ...
+ 
+ $ tBodyAcc-mean()-Y                   : num  -0.04051 -0.00131 -0.01614 -0.01738 -0.00992 ...
+ 
+ $ tBodyAcc-mean()-Z                   : num  -0.113 -0.105 -0.111 -0.111 -0.108 ...
+ 
+ ...
